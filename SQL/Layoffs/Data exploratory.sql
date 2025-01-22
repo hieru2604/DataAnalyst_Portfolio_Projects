@@ -14,10 +14,17 @@ ORDER BY funds_raised_millions DESC;
 SELECT MIN(`date`), MAX(`date`)
 FROM layoffs_staging2;
 
-SELECT company, SUM(total_laid_off)
-FROM layoffs_staging2
-GROUP BY company
+SELECT SUM(DISTINCT company)
+FROM layoffs_staging2;
+
+SELECT company, count(company), SUM(total_laid_off)
+FROM layoffs_staging2 
+group by company
 ORDER BY 2 DESC;
+
+select country, sum(company)
+FROM layoffs_staging2 
+group by country;
 
 SELECT YEAR(`date`), SUM(total_laid_off)
 FROM layoffs_staging2
@@ -59,3 +66,4 @@ WHERE years is not null
 SELECT *
 FROM Company_Year_Rank
 WHERE ranking <= 5
+ORDER BY ranking ASC
