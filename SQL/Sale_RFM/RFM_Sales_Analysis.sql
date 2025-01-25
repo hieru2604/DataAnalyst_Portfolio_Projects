@@ -13,7 +13,7 @@ select distinct MONTH_ID from [dbo].[sales_data_sample]
 where year_id = 2003
 
 ---ANALYSIS
-----Let's start by grouping sales by productline
+----Grouping sales by productline
 select PRODUCTLINE, sum(sales) Revenue
 from [dbo].[sales_data_sample]
 group by PRODUCTLINE
@@ -39,7 +39,7 @@ group by  MONTH_ID
 order by 2 desc
 
 
---November seems to be the month, what product do they sell in November, Classic I believe
+--what product do they sell in November
 select  MONTH_ID, PRODUCTLINE, sum(sales) Revenue, count(ORDERNUMBER)
 from [PortfolioDB].[dbo].[sales_data_sample]
 where YEAR_ID = 2004 and MONTH_ID = 11 --change year to see the rest
@@ -47,7 +47,7 @@ group by  MONTH_ID, PRODUCTLINE
 order by 3 desc
 
 
-----Who is our best customer (this could be best answered with RFM)
+----Who is our best customer
 
 
 DROP TABLE IF EXISTS #rfm
@@ -82,10 +82,10 @@ from rfm_calc c
 select CUSTOMERNAME , rfm_recency, rfm_frequency, rfm_monetary,
 	case 
 		when rfm_cell_string in (111, 112 , 121, 122, 123, 132, 211, 212, 114, 141) then 'lost_customers'  --lost customers
-		when rfm_cell_string in (133, 134, 143, 244, 334, 343, 344, 144) then 'slipping away, cannot lose' -- (Big spenders who haven’t purchased lately) slipping away
+		when rfm_cell_string in (133, 134, 143, 244, 334, 343, 344, 144) then 'slipping away, cannot lose' -- Big spenders who havenâ€™t purchased lately
 		when rfm_cell_string in (311, 411, 331) then 'new customers'
 		when rfm_cell_string in (222, 223, 233, 322) then 'potential churners'
-		when rfm_cell_string in (323, 333,321, 422, 332, 432) then 'active' --(Customers who buy often & recently, but at low price points)
+		when rfm_cell_string in (323, 333,321, 422, 332, 432) then 'active' -- Customers who buy often & recently, but at low price points
 		when rfm_cell_string in (433, 434, 443, 444) then 'loyal'
 	end rfm_segment
 
@@ -120,16 +120,12 @@ select distinct OrderNumber, stuff(
 from [dbo].[sales_data_sample] s
 order by 2 desc
 
-
----EXTRAs----
 --What city has the highest number of sales in a specific country
 select city, sum (sales) Revenue
 from [PortfolioDB].[dbo].[sales_data_sample]
 where country = 'UK'
 group by city
 order by 2 desc
-
-
 
 ---What is the best product in United States?
 select country, YEAR_ID, PRODUCTLINE, sum(sales) Revenue
