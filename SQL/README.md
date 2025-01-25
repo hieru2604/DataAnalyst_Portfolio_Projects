@@ -14,4 +14,4 @@
 - Grouping sales
 - Who is the best customer using RFM method
 - Products most often sold together
-[Link to Sale_RFM talbeau dashboard](https://public.tableau.com/app/profile/hieu.nguyen1200/viz/SaleDashboard2_17377536152200/SaleDashboard1)
+- [Link to Sale_RFM talbeau dashboard](https://public.tableau.com/app/profile/hieu.nguyen1200/viz/SaleDashboard2_17377536152200/SaleDashboard1)
